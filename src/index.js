@@ -3,7 +3,7 @@ import Notiflix from 'notiflix';
 import SimpleLightbox from "simplelightbox"
 import "simplelightbox/dist/simple-lightbox.min.css";
 
-refs = {
+const refs = {
     searchForm: document.querySelector('#search-form'),
     gallery: document.querySelector('.gallery'),
     loadMore: document.querySelector('.load-more'),
@@ -24,6 +24,9 @@ let page = 1;
 //   top: cardHeight * 2,
 //   behavior: "smooth",
 // });
+
+// бесконечн скрол
+
 
 refs.searchForm.addEventListener('submit', onSearch);
 refs.loadMore.classList.add('is-hidden');
