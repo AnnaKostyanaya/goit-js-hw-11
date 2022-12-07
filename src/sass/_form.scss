@@ -1,0 +1,142 @@
+#search-form {
+  font-size: medium;
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+body {
+  background-color: rgb(219, 237, 237);
+  padding-top: 45px;
+}
+
+button {
+  width: 130px;
+  height: 55px;
+  font-size: medium;
+  background-color: rgb(51, 163, 190);
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: black;
+  font-family:'Times New Roman', Times, serif;
+  font-weight: 600;
+  text-align: center;
+}
+
+input {
+  width: 250px;
+  height: 55px;
+  font-size: medium;
+  border-radius: 4px;
+  padding: 8px;
+  font-family: 'Times New Roman', Times, serif;
+  border-color: rgb(169, 190, 232);
+}
+
+.load-more {
+  position: fixed;
+  top: 2750px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 8px;
+}
+
+.load-more.is-hidden {
+  display: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 2vw;
+}
+
+.photo-card {
+  width: 20vw;
+  margin: 2vw;
+}
+
+.info {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start
+}
+
+.info-item {
+  margin: 4px;
+  font-size: small;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+
+@media screen and (max-width: 479px) {
+    button {
+    width: 85px;
+    height: 35px;
+    font-size: small;
+  }
+  input {
+    width: 110px;
+    height: 40px;
+    font-size: small;
+  }
+}
+
+@media screen and (min-width: 480px) and (max-width: 767px) {
+  button {
+    width: 90px;
+    height: 35px;
+    font-size: medium;
+  }
+  input {
+    width: 120px;
+    height: 35px;
+    font-size: medium;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+  button {
+    width: 130px;
+    height: 55px;
+    font-size: medium;
+  }
+  input {
+    width: 250px;
+    height: 55px;
+    font-size: medium;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  button {
+  width: 130px;
+  height: 55px;
+  font-size: large;
+  }
+  input {
+    width: 250px;
+    height: 55px;
+    font-size: large;
+  }
+  .gallery {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 1.8vw;
+  }
+  .photo-card {
+    width: 20vw;
+    margin: 1.8vw;
+  }
+  .load-more {
+    top: 3000px;
+    left: 50%;
+  }
+}
