@@ -14,8 +14,6 @@ let page = 1;
 
 var lightbox = new SimpleLightbox('.gallery a');
 
-// бесконечн скрол
-
 refs.searchForm.addEventListener('submit', onSearch);
 refs.loadMore.classList.add('is-hidden');
 
@@ -89,7 +87,7 @@ function createMarkUp( largeImageURL, webformatURL, tags, likes, views, comments
     <a href = "${largeImageURL}" alt="foto"><img src="${webformatURL}" alt="${tags}" loading="lazy" /></a>
     <div class="info">
     <p class="info-item">
-        <b>likes</b> ${likes}
+        <b>Likes</b> ${likes}
     </p>
     <p class="info-item">
         <b>Views</b> ${views}
@@ -115,12 +113,15 @@ function renderGallery(data) {
 function appearloadMoreBtn() {
     refs.loadMore.remove();
     refs.gallery.after(refs.loadMore);
+    refs.loadMore.classList.add('load-more');
 }
 
 function scrollByElement() {
-    const { height: cardHeight } = refs.gallery.firstElementChild.getBoundingClientRect();
-    window.scrollBy({
-        top: cardHeight * 2,
-        behavior: "smooth",
-    });
+    setTimeout(() => {
+        const { height: cardHeight } = refs.gallery.firstElementChild.getBoundingClientRect();
+        window.scrollBy({
+            top: cardHeight * 2,
+            behavior: "smooth",
+        });
+    }, 3000);
 }
