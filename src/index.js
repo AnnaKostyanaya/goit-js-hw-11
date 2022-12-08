@@ -31,9 +31,8 @@ let page = 1;
 refs.searchForm.addEventListener('submit', onSearch);
 refs.loadMore.classList.add('is-hidden');
 
-async function onSearch(evt) {
+function onSearch(evt) {
     try { 
-        console.log('По нажатию');
         evt.preventDefault();
         search = evt.target.elements.searchQuery.value.trim();
         if (search !== previousSearch) {
@@ -41,9 +40,8 @@ async function onSearch(evt) {
         }
         refs.gallery.innerHTML = '';
         refs.loadMore.classList.add('is-hidden');
-        await axiosTheme(search, page)
+        axiosTheme(search, page)
             .then(data => {
-                console.log('Обработка данних');
                 // if (search !== previousSearch && previousSearch !== 0) {
                 //     lightbox.refresh();
                 // }
