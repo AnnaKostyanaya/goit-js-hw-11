@@ -58,6 +58,7 @@ function onSearch(evt) {
                 }
                 if (data.totalHits > 40) {
                     refs.loadMore.classList.remove('is-hidden');
+                    appearloadMoreBtn();
                     refs.loadMore.addEventListener('click', onLoadBtn);
                 }
                 for (let i = 0; i < data.hits.length; i += 1) {
@@ -126,4 +127,7 @@ function createMarkUp( largeImageURL, webformatURL, tags, likes, views, comments
     `
 }
 
-
+function appearloadMoreBtn() {
+    refs.loadMore.remove();
+    refs.gallery.after(refs.loadMore);
+}
