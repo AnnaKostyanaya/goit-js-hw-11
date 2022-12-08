@@ -12,27 +12,16 @@ let search = '';
 let previousSearch = '';
 let page = 1;
 
-
-// lightbox.refresh(); - при смене слова, страниц
-
-// плавное прокручивание страниці
-// const { height: cardHeight } = document
-//   .querySelector(".gallery")
-//   .firstElementChild.getBoundingClientRect();
-
-// window.scrollBy({
-//   top: cardHeight * 2,
-//   behavior: "smooth",
-// });
+var lightbox = new SimpleLightbox('.gallery a');
 
 // бесконечн скрол
-
 
 refs.searchForm.addEventListener('submit', onSearch);
 refs.loadMore.classList.add('is-hidden');
 
-function onSearch(evt) {
-    try { 
+
+async function onSearch(evt) {
+    try {
         evt.preventDefault();
         search = evt.target.elements.searchQuery.value.trim();
         if (search !== previousSearch) {
@@ -40,11 +29,8 @@ function onSearch(evt) {
         }
         refs.gallery.innerHTML = '';
         refs.loadMore.classList.add('is-hidden');
-        axiosTheme(search, page)
+        await axiosTheme(search, page)
             .then(data => {
-                // if (search !== previousSearch && previousSearch !== 0) {
-                //     lightbox.refresh();
-                // }
                 let lastPage = (Number((data.totalHits / 40).toFixed(0)));
                 if (page === lastPage) {
                     refs.loadMore.classList.add('is-hidden');
@@ -61,12 +47,10 @@ function onSearch(evt) {
                     appearloadMoreBtn();
                     refs.loadMore.addEventListener('click', onLoadBtn);
                 }
-                for (let i = 0; i < data.hits.length; i += 1) {
-                    const markUp = createMarkUp(data.hits[i].webformatURL, data.hits[i].largeImageURL, data.hits[i].tags, data.hits[i].likes, data.hits[i].views, data.hits[i].comments, data.hits[i].downloads);
-                    refs.gallery.insertAdjacentHTML("beforeend", markUp);
-                }
+                renderGallery(data);
                 page += 1;
-                var lightbox = new SimpleLightbox('.gallery a');
+                lightbox.refresh();
+                scrollByElement(refs.gallery);
             })
     } catch (error) { 
         if (error.name === 'AxiosError') {
@@ -75,28 +59,22 @@ function onSearch(evt) {
     }
 } 
 
-
-function onLoadBtn(evt) {
+async function onLoadBtn(evt) {
     try { 
         if (search !== previousSearch) {
             page = 1;
-        } 
-        axiosTheme(search, page).then(data => {
-            // if (search !== previousSearch && previousSearch !== 0) {
-            //     lightbox.refresh();
-            // }
+        }
+        await axiosTheme(search, page).then(data => {
             let lastPage = (Number((data.totalHits / 40).toFixed(0)));
                 if (page === lastPage) {
                     Notiflix.Notify.info("We're sorry, but you've reached the end of search results.");
                     refs.loadMore.classList.add('is-hidden');
                 }
             refs.gallery.innerHTML = '';
-            for (let i = 0; i < data.hits.length; i += 1) {
-                const markUp = createMarkUp(data.hits[i].webformatURL, data.hits[i].largeImageURL, data.hits[i].tags, data.hits[i].likes, data.hits[i].views, data.hits[i].comments, data.hits[i].downloads);
-                refs.gallery.insertAdjacentHTML("beforeend", markUp);
-            }
+            renderGallery(data);
             page += 1;
-            var lightbox = new SimpleLightbox('.gallery a');
+            lightbox.refresh();
+            scrollByElement(refs.gallery);
         })
     } catch (error) { 
         if (error.name === 'AxiosError') {
@@ -127,7 +105,22 @@ function createMarkUp( largeImageURL, webformatURL, tags, likes, views, comments
     `
 }
 
+function renderGallery(data) {
+    for (let i = 0; i < data.hits.length; i += 1) {
+        const markUp = createMarkUp(data.hits[i].webformatURL, data.hits[i].largeImageURL, data.hits[i].tags, data.hits[i].likes, data.hits[i].views, data.hits[i].comments, data.hits[i].downloads);
+        refs.gallery.insertAdjacentHTML("beforeend", markUp);
+    }
+}
+
 function appearloadMoreBtn() {
     refs.loadMore.remove();
     refs.gallery.after(refs.loadMore);
+}
+
+function scrollByElement() {
+    const { height: cardHeight } = refs.gallery.firstElementChild.getBoundingClientRect();
+    window.scrollBy({
+        top: cardHeight * 2,
+        behavior: "smooth",
+    });
 }
