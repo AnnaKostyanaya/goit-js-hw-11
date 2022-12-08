@@ -1,7 +1,7 @@
 import axiosTheme from './api-service';
 import Notiflix from 'notiflix';
-// import SimpleLightbox from "simplelightbox"
-// import "simplelightbox/dist/simple-lightbox.min.css";
+import SimpleLightbox from "simplelightbox"
+import "simplelightbox/dist/simple-lightbox.min.css";
 
 const refs = {
     searchForm: document.querySelector('#search-form'),
@@ -33,6 +33,7 @@ refs.loadMore.classList.add('is-hidden');
 
 async function onSearch(evt) {
     try { 
+        console.log('По нажатию');
         evt.preventDefault();
         search = evt.target.elements.searchQuery.value.trim();
         if (search !== previousSearch) {
@@ -42,6 +43,7 @@ async function onSearch(evt) {
         refs.loadMore.classList.add('is-hidden');
         await axiosTheme(search, page)
             .then(data => {
+                console.log('Обработка данних');
                 let lastPage = (Number((data.totalHits / 40).toFixed(0)));
                 if (page === lastPage) {
                     refs.loadMore.classList.add('is-hidden');
@@ -62,7 +64,7 @@ async function onSearch(evt) {
                     refs.gallery.insertAdjacentHTML("beforeend", markUp);
                 }
                 page += 1;
-                // var lightbox = new SimpleLightbox('.gallery a');
+                var lightbox = new SimpleLightbox('.gallery a');
             })
     } catch (error) { 
         if (error.name === 'AxiosError') {
@@ -89,7 +91,7 @@ function onLoadBtn(evt) {
                 refs.gallery.insertAdjacentHTML("beforeend", markUp);
             }
             page += 1;
-            // var lightbox = new SimpleLightbox('.gallery a');
+            var lightbox = new SimpleLightbox('.gallery a');
         })
     } catch (error) { 
         if (error.name === 'AxiosError') {
