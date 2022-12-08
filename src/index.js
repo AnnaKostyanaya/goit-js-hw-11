@@ -1,4 +1,4 @@
-import axiosTheme from './api-service';
+import axiosTheme from './js/api-service';
 import Notiflix from 'notiflix';
 import SimpleLightbox from "simplelightbox"
 import "simplelightbox/dist/simple-lightbox.min.css";
@@ -44,6 +44,9 @@ async function onSearch(evt) {
         await axiosTheme(search, page)
             .then(data => {
                 console.log('Обработка данних');
+                // if (search !== previousSearch && previousSearch !== 0) {
+                //     lightbox.refresh();
+                // }
                 let lastPage = (Number((data.totalHits / 40).toFixed(0)));
                 if (page === lastPage) {
                     refs.loadMore.classList.add('is-hidden');
@@ -80,6 +83,9 @@ function onLoadBtn(evt) {
             page = 1;
         } 
         axiosTheme(search, page).then(data => {
+            // if (search !== previousSearch && previousSearch !== 0) {
+            //     lightbox.refresh();
+            // }
             let lastPage = (Number((data.totalHits / 40).toFixed(0)));
                 if (page === lastPage) {
                     Notiflix.Notify.info("We're sorry, but you've reached the end of search results.");
