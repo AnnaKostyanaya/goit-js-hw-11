@@ -1,7 +1,7 @@
 import axiosTheme from './api-service';
 import Notiflix from 'notiflix';
-import SimpleLightbox from "simplelightbox"
-import "simplelightbox/dist/simple-lightbox.min.css";
+// import SimpleLightbox from "simplelightbox"
+// import "simplelightbox/dist/simple-lightbox.min.css";
 
 const refs = {
     searchForm: document.querySelector('#search-form'),
@@ -62,7 +62,7 @@ async function onSearch(evt) {
                     refs.gallery.insertAdjacentHTML("beforeend", markUp);
                 }
                 page += 1;
-                var lightbox = new SimpleLightbox('.gallery a');
+                // var lightbox = new SimpleLightbox('.gallery a');
             })
     } catch (error) { 
         if (error.name === 'AxiosError') {
@@ -89,7 +89,7 @@ function onLoadBtn(evt) {
                 refs.gallery.insertAdjacentHTML("beforeend", markUp);
             }
             page += 1;
-            var lightbox = new SimpleLightbox('.gallery a');
+            // var lightbox = new SimpleLightbox('.gallery a');
         })
     } catch (error) { 
         if (error.name === 'AxiosError') {
