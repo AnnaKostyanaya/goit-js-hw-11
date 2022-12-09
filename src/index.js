@@ -53,6 +53,7 @@ async function onSearch(evt) {
     } catch (error) { 
         if (error.name === 'AxiosError') {
             Notiflix.Notify.info("We're sorry, but you've reached the end of search results.");
+            console.clear();
         };
     }
 } 
@@ -67,6 +68,7 @@ async function onLoadBtn(evt) {
             let lastPage = (Number((data.totalHits / 40).toFixed(0)));
                 if (page === lastPage) {
                     Notiflix.Notify.info("We're sorry, but you've reached the end of search results.");
+                    console.clear();
                     refs.loadMore.classList.add('is-hidden');
                 }
             renderGallery(data);
@@ -77,6 +79,7 @@ async function onLoadBtn(evt) {
     } catch (error) { 
         if (error.name === 'AxiosError') {
             Notiflix.Notify.info("We're sorry, but you've reached the end of search results.");
+            console.clear();
         };
     }
 }
