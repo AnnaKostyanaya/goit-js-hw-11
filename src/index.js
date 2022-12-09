@@ -108,8 +108,8 @@ function createMarkUp( largeImageURL, webformatURL, tags, likes, views, comments
 
 function renderGallery(data) {
     for (let i = 0; i < data.hits.length; i += 1) {
-        const markUp = createMarkUp(data.hits[i].webformatURL, data.hits[i].largeImageURL, data.hits[i].tags, data.hits[i].likes, data.hits[i].views, data.hits[i].comments, data.hits[i].downloads);
-        refs.gallery.insertAdjacentHTML("beforeend", markUp);
+    const markUp = createMarkUp(data.hits[i].webformatURL, data.hits[i].largeImageURL, data.hits[i].tags, data.hits[i].likes, data.hits[i].views, data.hits[i].comments, data.hits[i].downloads);
+    refs.gallery.insertAdjacentHTML("beforeend", markUp);
     }
 }
 

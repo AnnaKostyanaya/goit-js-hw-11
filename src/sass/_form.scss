@@ -35,7 +35,8 @@ input {
 }
 
 .load-more {
-  margin-left: 80vw;
+  margin-left: 84vw;
+  margin-bottom: 2vh;
 }
 
 .load-more.is-hidden {
@@ -133,3 +134,7 @@ img {
   }
 
 }
+
+.photo-card { overflow: hidden; width: 20vw;}
+.photo-card .a { float: left; margin-right: 2vw; margin-bottom: 2vw;}
+.photo-card img { width: 20vw; height: 20vh; object-fit: cover; }
