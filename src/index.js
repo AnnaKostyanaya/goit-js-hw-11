@@ -3,6 +3,7 @@ import Notiflix from 'notiflix';
 import SimpleLightbox from "simplelightbox"
 import "simplelightbox/dist/simple-lightbox.min.css";
 
+
 const refs = {
     searchForm: document.querySelector('#search-form'),
     gallery: document.querySelector('.gallery'),
@@ -17,15 +18,14 @@ var lightbox = new SimpleLightbox('.gallery a');
 refs.searchForm.addEventListener('submit', onSearch);
 refs.loadMore.classList.add('is-hidden');
 
-
 async function onSearch(evt) {
     try {
         evt.preventDefault();
         search = evt.target.elements.searchQuery.value.trim();
         if (search !== previousSearch) {
             page = 1;
+            refs.gallery.innerHTML = '';
         }
-        refs.gallery.innerHTML = '';
         refs.loadMore.classList.add('is-hidden');
         await axiosTheme(search, page)
             .then(data => {
@@ -61,6 +61,7 @@ async function onLoadBtn(evt) {
     try { 
         if (search !== previousSearch) {
             page = 1;
+            refs.gallery.innerHTML = '';
         }
         await axiosTheme(search, page).then(data => {
             let lastPage = (Number((data.totalHits / 40).toFixed(0)));
@@ -68,7 +69,6 @@ async function onLoadBtn(evt) {
                     Notiflix.Notify.info("We're sorry, but you've reached the end of search results.");
                     refs.loadMore.classList.add('is-hidden');
                 }
-            refs.gallery.innerHTML = '';
             renderGallery(data);
             page += 1;
             lightbox.refresh();
@@ -117,11 +117,9 @@ function appearloadMoreBtn() {
 }
 
 function scrollByElement() {
-    setTimeout(() => {
-        const { height: cardHeight } = refs.gallery.firstElementChild.getBoundingClientRect();
-        window.scrollBy({
-            top: cardHeight * 2,
-            behavior: "smooth",
-        });
-    }, 3000);
+    const { height: cardHeight } = refs.gallery.firstElementChild.getBoundingClientRect();
+    window.scrollBy({
+        top: cardHeight * 2,
+        behavior: "smooth",
+    });
 }
