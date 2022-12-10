@@ -29,7 +29,13 @@ async function onSearch(evt) {
         refs.loadMore.classList.add('is-hidden');
         await axiosTheme(search, page)
             .then(data => {
-                let lastPage = (Number((data.totalHits / 40).toFixed(0)));
+                let lastPage = Number(data.totalHits % 40);
+                if (lastPage === 0) {
+                    lastPage = Number(data.totalHits / 40);
+                } else {
+                    lastPage = Number.parseInt(data.totalHits / 40) + 1;
+                    console.log(lastPage);
+                }
                 if (page === lastPage) {
                     refs.loadMore.classList.add('is-hidden');
                     Notiflix.Notify.info("We're sorry, but you've reached the end of search results.");
@@ -65,12 +71,16 @@ async function onLoadBtn(evt) {
             refs.gallery.innerHTML = '';
         }
         await axiosTheme(search, page).then(data => {
-            let lastPage = (Number((data.totalHits / 40).toFixed(0)));
-                if (page === lastPage) {
-                    Notiflix.Notify.info("We're sorry, but you've reached the end of search results.");
-                    console.clear();
-                    refs.loadMore.classList.add('is-hidden');
-                }
+            let lastPage = Number(data.totalHits % 40);
+            if (lastPage === 0) {
+                lastPage = Number(data.totalHits / 40);
+            } else {
+                lastPage = Number.parseInt(data.totalHits / 40) + 1;
+            }
+            if (page === lastPage) {
+                refs.loadMore.classList.add('is-hidden');
+                Notiflix.Notify.info("We're sorry, but you've reached the end of search results.");
+            }
             renderGallery(data);
             page += 1;
             lightbox.refresh();
